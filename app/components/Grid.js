@@ -71,7 +71,7 @@ export class Grid {
             for (let j = 0; j < this.cells[i].length; j++){
 
                 let neighbors = this.cells[i][j].countLivingNeighbors(this.cells[i][j].y / 20, this.cells[i][j].x / 20, this.cells.length, this.cells[i].length, this.cells)
-                if(neighbors === 3 || neighbors === 2){
+                if(neighbors === 3){
                     arr.push(this.cells[i][j])
                 }else if(neighbors === 2 && this.cells[i][j].Alive){
                     arr.push(this.cells[i][j])
@@ -92,7 +92,6 @@ export class Grid {
     }
 
     draw() {
-
         let y = 0
 
         while (y < this.canvas.height){
@@ -102,6 +101,7 @@ export class Grid {
             this.context.stroke();
             y = y + 20
         }
+
         let x = 0
 
         while (x < this.canvas.width){

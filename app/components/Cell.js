@@ -32,7 +32,6 @@ export class Cell {
             (x < w && x >= 0 && y+1 < h && y+1 >= 0 && arr[x][y+1].Alive) ? {x: x, y: y+1} : false,
             (x-1 < w && x-1 >= 0 && y+1 < h && y+1 >= 0 && arr[x-1][y+1].Alive) ? {x: x-1, y: y+1} : false
         ]
-       // alert(neighbors)
         let count = 0
         for (let i = 0; i < neighbors.length; i++){
             if(neighbors[i] !== false){
