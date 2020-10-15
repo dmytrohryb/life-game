@@ -5,13 +5,14 @@ export class Grid {
         this.canvas = canvas
         this.context = context
         this.mouseDown = false
+        this.mouseDown = false
         this.cells = []
         this.initCanvas = this.initCanvas.bind(this)
         this.draw = this.draw.bind(this)
 
         this.handleMouseUp = this.handleMouseUp.bind(this)
         this.handleMouseDown = this.handleMouseDown.bind(this)
-
+        this.handleMouseMove = this.handleMouseMove.bind(this)
         this.initCanvas()
         this.draw()
     }
@@ -31,6 +32,17 @@ export class Grid {
         let Y = -1 + Math.ceil(y/20)
     }
 
+    handleMouseMove (e) {
+        if(this.mouseDown){
+            let x = e.pageX - e.target.offsetLeft, y = e.pageY - e.target.offsetTop
+            this.x = x
+            this.y = y
+            let X = -1 + Math.ceil(x/20)
+            let Y = -1 + Math.ceil(y/20)
+            this.cells[Y][X].switch()
+        }
+    }
+
     get Cells(){
         return this.cells
     }
@@ -47,6 +59,8 @@ export class Grid {
         this.canvas.addEventListener('mousedown', (e) => this.handleMouseDown(e))
 
         this.canvas.addEventListener('mouseup', (e) => this.handleMouseUp(e))
+
+        this.canvas.addEventListener('mousemove', (e) => this.handleMouseMove(e))
 
         this.canvas.width = window.innerWidth - 39
         this.canvas.height = window.innerHeight - 40
@@ -65,7 +79,6 @@ export class Grid {
     }
 
     update(){
-
         let arr = [] // ячейки которые 'оживут' в текущем кадре
         for(let i = 0; i < this.cells.length; i++){
             for (let j = 0; j < this.cells[i].length; j++){

@@ -2,7 +2,8 @@ export class Game {
     constructor () {
         this.observers = []
         this.timer = ''
-        this.speed = 500
+        this.speed = 100
+        this.started = false
         this.subscribe = this.subscribe.bind(this)
         this.broadcast = this.broadcast.bind(this)
         this.unsubscribe = this.unsubscribe.bind(this)
@@ -11,7 +12,11 @@ export class Game {
     }
 
     start(){
+        if(this.started){
+            this.pause()
+        }
         this.timer = setInterval(() => {this.broadcast()}, this.speed)
+        this.started = true
     }
 
     oneStep(){
@@ -21,9 +26,12 @@ export class Game {
 
     changeSpeed(speed){
         if(parseInt(speed)) this.speed = speed
+        this.pause()
+        this.start()
     }
 
     pause(){
+        this.started = false
         if(this.timer !== '') clearInterval(this.timer)
     }
 
